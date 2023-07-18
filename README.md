@@ -15,7 +15,7 @@ MaxLocJoin-EDP is used to partition an RDF graph.
 
 Use
 
-````
+``./mlj-edp rdf_triple_file_name output separator number_of_parts``
 
 Now, MaxLocJoin-EDP only support RDF datasets in NT format. Each line is a triple of subject, property and object, where the tab "\t" or the space " " are used as the separator. If separator in the above command equals to "1", the separator is the space " "; if separator in the above command equals to "2", the separator is the tab "\t".
 
