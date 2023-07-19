@@ -1,0 +1,5 @@
+select  * where { 
+    ?p <http://dbpedia.org/property/seatType> ?seattype .
+    ?p <http://dbpedia.org/property/unitPref> ?subtype .
+    ?p <http://dbpedia.org/property/wikiLinks>+ ?ispartof .
+}

@@ -1,0 +1,5 @@
+select  * where {
+    <http://dbpedia.org/resource/Louis_X_of_France> <http://dbpedia.org/property/father>+ ?fathers .
+    <http://dbpedia.org/resource/Louis_X_of_France> <http://dbpedia.org/property/birthPlace> ?birthPlace .
+    <http://dbpedia.org/resource/Louis_X_of_France> <http://dbpedia.org/property/deathPlace> ?deathPlace .
+}

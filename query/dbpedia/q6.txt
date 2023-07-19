@@ -1,0 +1,5 @@
+select  * where {
+    <http://dbpedia.org/resource/Play_That_Funky_Music> <http://dbpedia.org/property/before>+ ?before . 
+    <http://dbpedia.org/resource/Play_That_Funky_Music> <http://dbpedia.org/property/genre> ?genre .
+    <http://dbpedia.org/resource/Play_That_Funky_Music> <http://dbpedia.org/property/writer> ?writer .
+}
