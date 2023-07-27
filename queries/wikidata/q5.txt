@@ -1,7 +1,0 @@
-select * where {
- ?var1 <http://www.wikidata.org/prop/direct/P136> <http://www.wikidata.org/entity/Q28968511> .
- ?var1 <http://www.wikidata.org/prop/direct/P527>+ ?var3 .
- ?var2 <http://www.wikidata.org/prop/direct/P509> ?var6 .
- ?var2 <http://www.wikidata.org/prop/direct/P1441> ?var3 .
- ?var2 <http://www.wikidata.org/prop/direct/P1196> ?var4 .
-}
