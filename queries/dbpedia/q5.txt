@@ -1,5 +1,0 @@
-select  * where {
-    ?p <http://dbpedia.org/property/capital> ?t . 
-    ?p <http://dbpedia.org/property/centre> ?centre .
-    ?p <http://dbpedia.org/property/southwest>+ ?place .
-}

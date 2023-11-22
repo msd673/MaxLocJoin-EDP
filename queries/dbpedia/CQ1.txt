@@ -1,0 +1,4 @@
+select  * where { 
+    ?deity <http://dbpedia.org/property/siblings>+ ?siblings .
+    ?deity <http://dbpedia.org/property/parents>+ ?parents .
+}
