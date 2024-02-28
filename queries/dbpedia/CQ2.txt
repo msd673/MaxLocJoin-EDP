@@ -1,6 +1,0 @@
-select  * where { 
-    ?subject <http://dbpedia.org/property/nationality> ?nationality .
-    ?subject <http://dbpedia.org/property/dateOfDeath> ?dateOfDeath .
-    ?subject <http://dbpedia.org/property/placeOfDeath> ?death .
-    ?subject <http://dbpedia.org/property/influences>+ <http://dbpedia.org/resource/Plato> .
-}

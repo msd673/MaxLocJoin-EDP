@@ -1,4 +1,0 @@
-select  * where {
-    ?p <http://dbpedia.org/property/union>+ ?union .
-    ?p <http://dbpedia.org/property/caption> ?caption .
-}

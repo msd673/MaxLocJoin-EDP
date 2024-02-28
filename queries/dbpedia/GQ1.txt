@@ -1,8 +1,0 @@
-select * where { 
-?deity <http://dbpedia.org/property/siblings> ?siblings .
-?deity <http://dbpedia.org/property/parents> ?parents .
-?deity <http://xmlns.com/foaf/0.1/depiction> ?depiction .
-FILTER (?depiction IN (<http://upload.wikimedia.org/wikipedia/en/4/43/Adamcarrington2.jpg>, 
-                       <http://upload.wikimedia.org/wikipedia/commons/5/52/LangstonWilde.png>,
-                       <http://commons.wikimedia.org/wiki/Special:FilePath/Hypnos_Thanatos_BM_Vase_D56.jpg>)) . 
-}
