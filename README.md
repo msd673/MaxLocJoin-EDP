@@ -23,4 +23,4 @@ Now, MaxLocJoin-EDP only support RDF datasets in NT format. Each line is a tripl
 The benchmark queries used in our experimental evaluation exists in #queries# folder.
 
 # Contact
-For any questions or inquiries, please contact us at msd673@hnu.edu.cn.
+For any questions or inquiries, please contact us at 2309721596@qq.com.
