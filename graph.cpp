@@ -39,7 +39,6 @@ graph::split(string textline, string tag)
 	std::size_t pre_pos = 0;
 	std::size_t pos = textline.find(tag);
 
-	// 依次处理line中的每个tag数据
 	while (pos != std::string::npos)
 	{
 		if (res.size() == 2)
