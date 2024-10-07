@@ -53,7 +53,6 @@ private:
 	long long limit;
 	long long invalidEdgeCnt;
 
-	// coarseningPoint[preID]表示preID的谓词
 	vector<unordered_map<int, int>> coarseningPoint;
 	vector<unordered_map<int, int>> coarseningEdgeCnt;
 
