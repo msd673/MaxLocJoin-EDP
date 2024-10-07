@@ -83,7 +83,6 @@ void graph::loadGraph(string txt_name, string tag)
 		s = split(line, tag);
 		predicate.insert(s[1]);
 
-		// 判断这个实体是否有效
 		for (int i = 0; i < 3; i += 2)
 			if ((s[i][0] == '<') && entityToID.count(s[i]) == 0)
 			{
@@ -97,8 +96,6 @@ void graph::loadGraph(string txt_name, string tag)
 		int b = entityToID[s[2]];
 		entityTriples[a]++;
 
-		// 1. 判断predicate & rdf是否有效
-		// 2. 如果谓词有效，增加对应的主语和宾语
 		if ((s[0][0] == '<') && (s[2][0] == '<'))
 		{
 			if (predicateToID.count(s[1]) == 0)
@@ -187,7 +184,6 @@ void graph::coarsening()
 				rank[parentA] = max(rank[parentA], rank[parentB] + 1);
 				get<2>(edge[preID][p]) = parentA;
 
-				// 某个WCC规模超过了limit
 				if (coarseningEdgeCnt[preID][parentA] > limit && !invalid[preID])
 				{
 					invalid[preID] = 1;
@@ -225,7 +221,6 @@ void graph::unionEdgeGreed()
 	int optim = 0;
 	for (int preID = 1; preID <= preType; preID++)
 	{
-		// 如果 preID 的边 cnt 小于阈值，则选择它作为内部
 		if (edge_cnt[IDToPredicate[preID]] < threshold)
 		{
 			for (int p = 0; p < edge[preID].size(); p++)
@@ -351,7 +346,6 @@ void graph::computeWccs(unordered_map<int, int> &coarseningPoint, vector<int> &c
 	{
 		int A = get<0>(edge[preID][p]), B = get<1>(edge[preID][p]);
 
-		// 孤立点, 以自环形式加入 标签为preID 的WCC
 		if (coarseningPoint.count(A) == 0)
 			coarseningPoint.insert(make_pair(A, A));
 		if (coarseningPoint.count(B) == 0)
@@ -389,12 +383,10 @@ void graph::unionBlock(vector<int> &choice, int goal)
 	for (int preID = 1; preID <= preType; preID++)
 		if (choice[preID] == 1)
 		{
-			// 计算所有loc property的弱连通子图
 			computeWccs(loccoarseningPoint, loccoarseningEdgeCnt, preID);
 		}
 		else
 		{
-			// 对于unloc property，直接计算该property的弱连通子图
 			unordered_map<int, int> unLoccoarseningPoint;
 			vector<int> unLoccoarseningEdgeCnt = vector<int>(entityCnt + 1, 0);
 			computeWccs(unLoccoarseningPoint, unLoccoarseningEdgeCnt, preID);
@@ -425,7 +417,6 @@ void graph::unionBlock(vector<int> &choice, int goal)
 			}
 		}
 
-	// 每个弱连通子图对应一个block
 	for (const auto &it : loccoarseningPoint)
 	{
 		int point = it.first;
@@ -457,7 +448,6 @@ void graph::unionBlock(vector<int> &choice, int goal)
 		}
 	}
 
-	// 划分所有的block
 	printf("blockNum: %d\n", blockNum);
 
 	sort(block.begin(), block.end());
@@ -487,7 +477,6 @@ void graph::unionBlock(vector<int> &choice, int goal)
 		Q.pop();
 	}
 
-	// partitionTriples文件是所有<><><>格式三元组的划分结果 subjectOutFile 文件用于处理<><>""的划分
 	ofstream outFile(RDF + "-partitionTriples.txt");
 	ofstream subjectOutFile(RDF + "-partition-loc-subject.txt");
 	for (auto it = queryTriplets.begin(); it != queryTriplets.end(); it++)
