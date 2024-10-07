@@ -4,7 +4,6 @@ clock_t st, ed;
 double endtime;
 int main(int argc, char *argv[])
 {
-	//输入格式： 数据集文件名 输出文件前缀名 数据集中三元组之间的分隔符以及分区个数
 	string txt_name = argv[1];
 	string name = argv[2];
 	string sign = (string(argv[3]) == "1") ? " " : "\t";
