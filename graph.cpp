@@ -39,7 +39,6 @@ graph::split(string textline, string tag)
 	std::size_t pre_pos = 0;
 	std::size_t pos = textline.find(tag);
 
-	// 依次处理line中的每个tag数据
 	while (pos != std::string::npos)
 	{
 		if (res.size() == 2)
@@ -70,7 +69,6 @@ void graph::loadGraph(string txt_name, string tag)
 {
 	ifstream in(txt_name);
 
-	cout << txt_name << "========" << endl;
 	vector<tuple<int, int, int>> tmp1;
 	string line;
 	while (getline(in, line))
@@ -83,7 +81,7 @@ void graph::loadGraph(string txt_name, string tag)
 		s = split(line, tag);
 		predicate.insert(s[1]);
 
-		// 判断这个实体是否有效
+		// Determine whether this entity is valid
 		for (int i = 0; i < 3; i += 2)
 			if ((s[i][0] == '<') && entityToID.count(s[i]) == 0)
 			{
@@ -97,8 +95,8 @@ void graph::loadGraph(string txt_name, string tag)
 		int b = entityToID[s[2]];
 		entityTriples[a]++;
 
-		// 1. 判断predicate & rdf是否有效
-		// 2. 如果谓词有效，增加对应的主语和宾语
+		// 1. Determine whether predicate & rdf are valid
+		// 2. If the predicate is valid, add the corresponding subject and object
 		if ((s[0][0] == '<') && (s[2][0] == '<'))
 		{
 			if (predicateToID.count(s[1]) == 0)
@@ -114,6 +112,7 @@ void graph::loadGraph(string txt_name, string tag)
 	}
 	in.close();
 
+	// Can be adjusted according to specific needs
 	limit = entityCnt / part / 1.2;
 	printf("limit: %lld\n", limit);
 	printf("triplesCnt: %lld\n", triplesCnt);
@@ -125,7 +124,6 @@ void graph::loadGraph(string txt_name, string tag)
 
 int graph::getParent(int son, vector<int> &fa)
 {
-	// return fa[son]==son?son:fa[son]=getParent(fa[son],fa);
 	int i, j, k;
 	k = son;
 	while (k != fa[k])
@@ -187,7 +185,7 @@ void graph::coarsening()
 				rank[parentA] = max(rank[parentA], rank[parentB] + 1);
 				get<2>(edge[preID][p]) = parentA;
 
-				// 某个WCC规模超过了limit
+				// The size of a WCC exceeds the limit
 				if (coarseningEdgeCnt[preID][parentA] > limit && !invalid[preID])
 				{
 					invalid[preID] = 1;
@@ -225,7 +223,7 @@ void graph::unionEdgeGreed()
 	int optim = 0;
 	for (int preID = 1; preID <= preType; preID++)
 	{
-		// 如果 preID 的边 cnt 小于阈值，则选择它作为内部
+		// If the edge cnt of preID is less than the threshold, it is selected as the inner
 		if (edge_cnt[IDToPredicate[preID]] < threshold)
 		{
 			for (int p = 0; p < edge[preID].size(); p++)
@@ -351,7 +349,7 @@ void graph::computeWccs(unordered_map<int, int> &coarseningPoint, vector<int> &c
 	{
 		int A = get<0>(edge[preID][p]), B = get<1>(edge[preID][p]);
 
-		// 孤立点, 以自环形式加入 标签为preID 的WCC
+		// Isolated points, join the WCC with label preID in the form of self-loop
 		if (coarseningPoint.count(A) == 0)
 			coarseningPoint.insert(make_pair(A, A));
 		if (coarseningPoint.count(B) == 0)
@@ -389,12 +387,12 @@ void graph::unionBlock(vector<int> &choice, int goal)
 	for (int preID = 1; preID <= preType; preID++)
 		if (choice[preID] == 1)
 		{
-			// 计算所有loc property的弱连通子图
+			// Compute the weakly connected subgraph of all local properties
 			computeWccs(loccoarseningPoint, loccoarseningEdgeCnt, preID);
 		}
 		else
 		{
-			// 对于unloc property，直接计算该property的弱连通子图
+			// For the unlocal property, directly calculate the weakly connected subgraph of the property
 			unordered_map<int, int> unLoccoarseningPoint;
 			vector<int> unLoccoarseningEdgeCnt = vector<int>(entityCnt + 1, 0);
 			computeWccs(unLoccoarseningPoint, unLoccoarseningEdgeCnt, preID);
@@ -425,7 +423,7 @@ void graph::unionBlock(vector<int> &choice, int goal)
 			}
 		}
 
-	// 每个弱连通子图对应一个block
+	// Each weakly connected subgraph corresponds to a block
 	for (const auto &it : loccoarseningPoint)
 	{
 		int point = it.first;
@@ -457,7 +455,7 @@ void graph::unionBlock(vector<int> &choice, int goal)
 		}
 	}
 
-	// 划分所有的block
+	// Divide all blocks
 	printf("blockNum: %d\n", blockNum);
 
 	sort(block.begin(), block.end());
@@ -487,7 +485,6 @@ void graph::unionBlock(vector<int> &choice, int goal)
 		Q.pop();
 	}
 
-	// partitionTriples文件是所有<><><>格式三元组的划分结果 subjectOutFile 文件用于处理<><>""的划分
 	ofstream outFile(RDF + "-partitionTriples.txt");
 	ofstream subjectOutFile(RDF + "-partition-loc-subject.txt");
 	for (auto it = queryTriplets.begin(); it != queryTriplets.end(); it++)
