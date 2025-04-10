@@ -39,5 +39,5 @@ int main(int argc, char *argv[])
 	return 0;
 }
 // g++ -o mlj-edp main.cpp -std=c++11
-// ./mlj-edp latest-truthy-202209-remove-tab.nt latest-truthy-202209-remove-tab 2 8
-// nohup ./mlj-edp /home/msd/wikidata/data/latest-truthy-202209-remove.nt wikidata_new 1 8 >wikidata.log 2>&1 &
+// ./mlj-edp dataset-tab.nt dataset-tab 2 8
+// nohup ./mlj-edp dataset.nt dataset 1 8 >dataset.log 2>&1 &
